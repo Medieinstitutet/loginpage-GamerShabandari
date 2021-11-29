@@ -36,7 +36,7 @@ let users = [
 
 
 
-localStorage.setItem("users", JSON.stringify(users));
+//localStorage.setItem("users", JSON.stringify(users));
 
 
 
@@ -46,17 +46,47 @@ printPage ();
 function printPage () {
 
     if (localStorage = "null") {
-        console.log("testa mig igen");
 
         main.innerHTML = "Välkommen, Logga in ovan";
         nav.innerHTML = "";
 
-        let navInput = document.createElement("input");
-        navInput.setAttribute("type", "text");
+        let navInputUsername = document.createElement("input");
+        navInputUsername.setAttribute("type", "text");
+        navInputUsername.setAttribute("id", "navInputUsername");
+        let navInputPassword = document.createElement("input");
+        navInputPassword.setAttribute("type", "password");
+        navInputPassword.setAttribute("id", "navInputPassword");
         let navInputBtn = document.createElement("button");
         navInputBtn.innerText = "Login"
         navInputBtn.setAttribute("id", "navInputBtn");
-        nav.append(navInput, navInputBtn);
+        nav.append(navInputUsername, navInputPassword, navInputBtn);
+
+
+        navInputBtn.addEventListener("click", function(){
+
+            console.log("nu vill du logga in");
+            let username = navInputUsername.value;
+            console.log(username);
+            let userPassword = navInputPassword.value;
+            console.log(userPassword);
+
+
+            let users = [
+                {
+                    name: username,
+                    password: userPassword,
+                    status: false
+                }
+            ];
+            
+
+            console.log(users);
+
+            localStorage.setItem("users", JSON.stringify(users));
+
+            printPage ();
+
+        });
 
     }
 
@@ -111,10 +141,3 @@ function printPage () {
 
 
 };
-
-
-//let getUsers = JSON.parse(localStorage.getItem("users"));
-
-//console.log(getUsers);
-
-//console.log(users);
