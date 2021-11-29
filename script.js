@@ -45,62 +45,69 @@ printPage ();
 
 function printPage () {
 
+    if (localStorage = "null") {
+        console.log("testa mig igen");
+
+        main.innerHTML = "Välkommen, Logga in ovan";
+        nav.innerHTML = "";
+
+        let navInput = document.createElement("input");
+        navInput.setAttribute("type", "text");
+        let navInputBtn = document.createElement("button");
+        navInputBtn.innerText = "Login"
+        navInputBtn.setAttribute("id", "navInputBtn");
+        nav.append(navInput, navInputBtn);
+
+    }
 
     //hämta array med objakt från localstorage
     let getUsers = JSON.parse(localStorage.getItem("users"));
 
-    console.log(getUsers);
+        console.log(getUsers);
 
-    // loopa igenom ovan array och sätt in värdena i variabler
-    for (let i = 0; i < getUsers.length; i++) {
-        let namn = getUsers[i].name;
-        let pass = getUsers[i].password;
-        let status = getUsers[i].status;
-        //console.log(namn);
-        //console.log(pass);
-
-
-        // kolla om användarens localstorage uppgifter stämmer överens med värden i ovan loop - DÅ ÄR DU INLOGGAD
-
-        if (namn === "janne" && pass === "test" || namn === "gamer" && pass === "milan") {
-      
-            console.log("ok du är inne");
-            status = true;
-            console.log(status);
-
-            main.innerHTML = "";
-            nav.innerHTML = "";
-
-            let logoutBtn = document.createElement("button");
-            logoutBtn.setAttribute("id", "logoutBtn");
-            logoutBtn.innerText = "Logga ut";
-            nav.append(logoutBtn);
+        // loopa igenom ovan array och sätt in värdena i variabler
+        for (let i = 0; i < getUsers.length; i++) {
+            let namn = getUsers[i].name;
+            let pass = getUsers[i].password;
+            let status = getUsers[i].status;
+            console.log(namn);
+            console.log(pass);
 
 
-            logoutBtn.addEventListener("click", function(){
+            // kolla om användarens localstorage uppgifter stämmer överens med värden i ovan loop - DÅ ÄR DU INLOGGAD
 
-                console.log("du vill logga ut");
-                localStorage.clear();
-                printPage();
-
-            });
-
-            let loggedInMain = document.createElement("section");
-            let welcomeText = document.createElement("p");
-            welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
-
-            main.append(loggedInMain);
-            loggedInMain.append(welcomeText);
-    
-        }else {
-            console.log("du är inte inloggad");
-
-        };
-
+            if (namn === "janne" && pass === "test" || namn === "gamer" && pass === "milan") {
         
-    }
+                console.log("ok du är inne");
+                status = true;
+                console.log(status);
 
+                main.innerHTML = "";
+                nav.innerHTML = "";
 
+                let logoutBtn = document.createElement("button");
+                logoutBtn.setAttribute("id", "logoutBtn");
+                logoutBtn.innerText = "Logga ut";
+                nav.append(logoutBtn);
+
+                let loggedInMain = document.createElement("section");
+                let welcomeText = document.createElement("p");
+                welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
+
+                main.append(loggedInMain);
+                loggedInMain.append(welcomeText);
+
+                logoutBtn.addEventListener("click", function(){
+
+                    console.log("du vill logga ut");
+                    localStorage.clear();
+                    printPage ();
+
+                });
+        
+            };
+            
+        };
 
 
 };
@@ -111,12 +118,3 @@ function printPage () {
 //console.log(getUsers);
 
 //console.log(users);
-
-
-
-// fel kod men funkar ta den till inlogg sidan sen 
-//let navInput = document.createElement("input");
-//            navInput.setAttribute("type", "text");
- //           let navInputBtn = document.createElement("button");
-   //         navInputBtn.setAttribute("id", "navInputBtn");
-     //       nav.append(navInput, navInputBtn);
