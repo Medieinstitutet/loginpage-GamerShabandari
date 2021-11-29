@@ -19,18 +19,16 @@ footer.append(footerText);
 root.append(nav, main, footer);
 
 
-// array med users
+// array med users-objekt
 let users = [
 
     {
         name: "janne",
-        password: "test",
-        status : false
+        password: "test"
     },
     {
         name: "gamer",
-        password: "milan",
-        status : false
+        password: "milan"
     }
 ];
 
@@ -74,8 +72,7 @@ function printPage () {
             let users = [
                 {
                     name: username,
-                    password: userPassword,
-                    status: false
+                    password: userPassword
                 }
             ];
             
@@ -99,7 +96,6 @@ function printPage () {
         for (let i = 0; i < getUsers.length; i++) {
             let namn = getUsers[i].name;
             let pass = getUsers[i].password;
-            let status = getUsers[i].status;
             console.log(namn);
             console.log(pass);
 
@@ -109,7 +105,6 @@ function printPage () {
             if (namn === "janne" && pass === "test" || namn === "gamer" && pass === "milan") {
         
                 console.log("ok du är inne");
-                status = true;
                 console.log(status);
 
                 main.innerHTML = "";
