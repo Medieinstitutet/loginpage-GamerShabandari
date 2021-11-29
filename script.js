@@ -19,27 +19,35 @@ footer.append(footerText);
 root.append(nav, main, footer);
 
 
-printPage ();
+printPage (); 
+
 
 function printPage () {
 
+
+    //hämta array med objakt från localstorage
     let getUsers = JSON.parse(localStorage.getItem("users"));
 
     console.log(getUsers);
 
+    // loopa igenom ovan array och sätt in värdena i variabler
     for (let i = 0; i < getUsers.length; i++) {
         let namn = getUsers[i].name;
         let pass = getUsers[i].password;
-        console.log(namn);
-        console.log(pass);
+        //console.log(namn);
+        //console.log(pass);
+
+
+        // kolla om användarens localstorage uppgifter stämmer överens med värden i ovan loop - DÅ ÄR DU INLOGGAD
+
+        if (namn === "janne" && pass === "test" || namn === "gamer" && pass === "milan") {
+      
+            console.log("ok du är inne");
+    
+        };
+
         
     }
-
-    if (getUsers.name === "janne" && getUsers.password === "test" || getUsers.name === "gamer" && getUsers.password === "milan") {
-      
-        console.log("hejhejhejhejeh");
-
-    };
 
 
 
