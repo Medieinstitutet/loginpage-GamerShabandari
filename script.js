@@ -88,8 +88,21 @@ function printPage () {
 
             console.log("nu ska vi skapa använadre"+createdUser+createdPassword);
 
-            
 
+                let getMyUsers = JSON.parse(localStorage.getItem("users"));
+                //console.log(getMyUsers);
+
+                let userCreatedAccount = {
+
+                    name: createdUser,
+                    password: createdPassword
+                };
+
+                getMyUsers.push(userCreatedAccount);
+
+                //console.log(getMyUsers);
+
+                localStorage.setItem("users", JSON.stringify(getMyUsers));
 
 
         });
@@ -134,7 +147,7 @@ function printPage () {
     if (login == true) {
 
 
-        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.getItem("users", JSON.stringify(users));
 
         //hämta array med objakt från localstorage
         let getUsers = JSON.parse(localStorage.getItem("users"));
