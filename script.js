@@ -81,6 +81,20 @@ function printPage () {
 
             localStorage.setItem("users", JSON.stringify(users));
 
+
+                /////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////
+
+                let createUserInput = document.createElement("input");
+
+
+                /////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////
+
+
+
             printPage ();
 
         });
@@ -125,7 +139,7 @@ function printPage () {
                 logoutBtn.addEventListener("click", function(){
 
                     console.log("du vill logga ut");
-                    localStorage.clear();
+                    localStorage.removeItem("users");
                     printPage ();
 
                 });
