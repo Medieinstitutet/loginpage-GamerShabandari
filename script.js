@@ -13,7 +13,7 @@ nav.append(logo);
 let main = document.createElement("main");
 
 let footer = document.createElement("footer");
-let footerText = document.createElement("h5");
+let footerText = document.createElement("h3");
 footerText.innerText = "copyright Gamer Shabandari - Medieinstitutet";
 footer.append(footerText);
 
@@ -144,10 +144,15 @@ function printPage () {
         navInputBtn.addEventListener("click", function(){
 
 
-            let mainFailedLogin = document.createElement("h1")
-            mainFailedLogin.innerText = "DU SKREV FEL LÖSEN!";
+            let mainFailedLogin = document.createElement("h2")
+            mainFailedLogin.innerText = "Du skrev fel lösen!";
+            let mainFailedImg = document.createElement("img")
+            mainFailedImg.setAttribute("src", "fail.jpg")
+            
+            
             main.innerHTML = "";
-            main.append(mainFailedLogin);
+
+            main.append(mainFailedLogin, mainFailedImg);
 
             //console.log("nu vill du logga in");
             let username = navInputUsername.value;
@@ -201,18 +206,23 @@ function printPage () {
 
                 main.innerHTML = "";
                 nav.innerHTML = "";
+                nav.append(logo);
+                main.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
 
                 let logoutBtn = document.createElement("button");
                 logoutBtn.setAttribute("id", "logoutBtn");
                 logoutBtn.innerText = "Logga ut";
                 nav.append(logoutBtn);
 
-                let loggedInMain = document.createElement("section");
-                let welcomeText = document.createElement("p");
-                welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
+                //let loggedInMain = document.createElement("section");
+                //let welcomeText = document.createElement("p");
+                //welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
 
-                main.append(loggedInMain);
-                loggedInMain.append(welcomeText);
+                let mainPassedImg = document.createElement("img")
+                mainPassedImg.setAttribute("src", "passed.jpg")
+
+                main.append(mainPassedImg);
+                //loggedInMain.append(welcomeText, mainPassedImg);
 
                 logoutBtn.addEventListener("click", function(){
 
