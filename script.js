@@ -35,6 +35,9 @@ let users = [
     }
 ];
 
+localStorage.setItem("users", JSON.stringify(users));
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //skapar två tomma variabler som sedan fylls när användaren försöker logga in, samt en boolean som växlar vid lyckad inlogg
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +53,8 @@ let login = false;
 //////////////////// kör printpage funktionen och avgör sedan vart i koden man hamnar ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
 printPage (); 
 
 
@@ -59,11 +64,14 @@ printPage ();
 
 function printPage () {
 
+
+    let testFunkar = JSON.parse(localStorage.getItem("status"));
+    console.log(testFunkar);
     
 //////////////////// om login = falsk - välkommna användare och be dem logga in eller skapa konto ///////////////////////////////////
 
 
-    if (login == false) {
+    if (login == false || testFunkar != "true") {
 
         main.innerHTML = "<h2>Välkommen, logga in ovan eller skapa ett nytt konto nedan om du är ny på sidan</h2>";
         nav.innerHTML = "";
@@ -206,6 +214,10 @@ function printPage () {
         
                 //console.log("ok du är inne");
 
+                let loginstatus = "true";
+
+                localStorage.setItem("status", (loginstatus));
+
             // töm sidan, rendera om med "inloggad vy - presentera knapp för utlogg som tömmer allt och börjar om igen med printpage"
 
                 main.innerHTML = "";
@@ -230,12 +242,10 @@ function printPage () {
 
                 logoutBtn.addEventListener("click", function(){
 
-                    console.log("du vill logga ut");
+                    
+                    localStorage.removeItem("status");
+
                     login = false;
-
-                    main.innerHTML = "test";
-                    nav.innerHTML = "test";
-
 
                     printPage ();
 
