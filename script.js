@@ -33,9 +33,11 @@ let users = [
 ];
 
 
+let usersLogin = "";
+let usersPassword = "";
 
-//localStorage.setItem("users", JSON.stringify(users));
 
+let login = false;
 
 
 printPage (); 
@@ -43,7 +45,7 @@ printPage ();
 
 function printPage () {
 
-    if (localStorage = "null") {
+    if (login == false) {
 
         main.innerHTML = "Välkommen, Logga in ovan";
         nav.innerHTML = "";
@@ -62,91 +64,88 @@ function printPage () {
 
         navInputBtn.addEventListener("click", function(){
 
+
+            let mainFailedLogin = document.createElement("h1")
+            mainFailedLogin.innerText = "DU SKREV FEL LÖSEN!";
+            main.innerHTML = "";
+            main.append(mainFailedLogin);
+
             console.log("nu vill du logga in");
             let username = navInputUsername.value;
-            console.log(username);
+            //console.log(username);
             let userPassword = navInputPassword.value;
-            console.log(userPassword);
+            //console.log(userPassword);
 
+            usersLogin = username;
+            usersPassword = userPassword;
 
-            let users = [
-                {
-                    name: username,
-                    password: userPassword
-                }
-            ];
-            
+            //console.log(users);
 
-            console.log(users);
+            //console.log(usersLogin, usersPassword);
 
-            localStorage.setItem("users", JSON.stringify(users));
+            login = true;
 
-
-                /////////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////////
-
-                let createUserInput = document.createElement("input");
-
-
-                /////////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////
-
-
-
-            printPage ();
+            printPage (); 
 
         });
 
     }
 
-    //hämta array med objakt från localstorage
-    let getUsers = JSON.parse(localStorage.getItem("users"));
-
-        console.log(getUsers);
-
-        // loopa igenom ovan array och sätt in värdena i variabler
-        for (let i = 0; i < getUsers.length; i++) {
-            let namn = getUsers[i].name;
-            let pass = getUsers[i].password;
-            console.log(namn);
-            console.log(pass);
+    if (login == true) {
 
 
-            // kolla om användarens localstorage uppgifter stämmer överens med värden i ovan loop - DÅ ÄR DU INLOGGAD
+        localStorage.setItem("users", JSON.stringify(users));
 
-            if (namn === "janne" && pass === "test" || namn === "gamer" && pass === "milan") {
-        
-                console.log("ok du är inne");
-                console.log(status);
+        //hämta array med objakt från localstorage
+        let getUsers = JSON.parse(localStorage.getItem("users"));
 
-                main.innerHTML = "";
-                nav.innerHTML = "";
+            //console.log(getUsers)
 
-                let logoutBtn = document.createElement("button");
-                logoutBtn.setAttribute("id", "logoutBtn");
-                logoutBtn.innerText = "Logga ut";
-                nav.append(logoutBtn);
+            // loopa igenom ovan array och sätt in värdena i variabler
+            for (let i = 0; i < getUsers.length; i++) {
+                let namn = getUsers[i].name;
+                let pass = getUsers[i].password;
+                //console.log(namn);
+                //console.log(pass);
 
-                let loggedInMain = document.createElement("section");
-                let welcomeText = document.createElement("p");
-                welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
 
-                main.append(loggedInMain);
-                loggedInMain.append(welcomeText);
 
-                logoutBtn.addEventListener("click", function(){
-
-                    console.log("du vill logga ut");
-                    localStorage.removeItem("users");
-                    printPage ();
-
-                });
-        
-            };
+                if (namn == usersLogin && pass == usersPassword) {
             
-        };
+                    console.log("ok du är inne");
+
+                    main.innerHTML = "";
+                    nav.innerHTML = "";
+
+                    let logoutBtn = document.createElement("button");
+                    logoutBtn.setAttribute("id", "logoutBtn");
+                    logoutBtn.innerText = "Logga ut";
+                    nav.append(logoutBtn);
+
+                    let loggedInMain = document.createElement("section");
+                    let welcomeText = document.createElement("p");
+                    welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
+
+                    main.append(loggedInMain);
+                    loggedInMain.append(welcomeText);
+
+                    logoutBtn.addEventListener("click", function(){
+
+                        console.log("du vill logga ut");
+                        login = false;
+
+                        main.innerHTML = "test";
+                        nav.innerHTML = "test";
+
+
+                        printPage ();
+
+                    });
+            
+                };
+                
+            };
+    };
 
 
 };
