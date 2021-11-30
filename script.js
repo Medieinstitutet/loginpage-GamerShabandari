@@ -47,8 +47,9 @@ function printPage () {
 
     if (login == false) {
 
-        main.innerHTML = "Välkommen, Logga in ovan";
+        main.innerHTML = "<h2>Välkommen, Logga in ovan eller skapa ett nytt konto nedan om du är ny på sidan</h2>" + "<br>";
         nav.innerHTML = "";
+        nav.append(logo);
 
         let navInputUsername = document.createElement("input");
         navInputUsername.setAttribute("type", "text");
@@ -60,6 +61,45 @@ function printPage () {
         navInputBtn.innerText = "Login"
         navInputBtn.setAttribute("id", "navInputBtn");
         nav.append(navInputUsername, navInputPassword, navInputBtn);
+
+
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+
+        let mainCreateUser = document.createElement("input");
+        mainCreateUser.setAttribute("type", "text");
+        mainCreateUser.setAttribute("id", "mainCreateUser");
+
+        let mainCreatePassword = document.createElement("input");
+        mainCreatePassword.setAttribute("type", "password");
+        mainCreatePassword.setAttribute("id", "mainCreatePassword");
+
+        let mainCreateUserBtn = document.createElement("button");
+        mainCreateUserBtn.innerText = "skapa användare";
+        mainCreateUserBtn.setAttribute("id", "mainCreateUserBtn");
+
+        main.append(mainCreateUser, mainCreatePassword, mainCreateUserBtn);
+
+        mainCreateUserBtn.addEventListener("click", function(){
+
+            let createdUser = mainCreateUser.value;
+            let createdPassword = mainCreatePassword.value;
+
+            console.log("nu ska vi skapa använadre"+createdUser+createdPassword);
+
+            
+
+
+
+        });
+
+
+
+
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
 
 
         navInputBtn.addEventListener("click", function(){
