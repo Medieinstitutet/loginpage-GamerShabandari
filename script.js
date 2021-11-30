@@ -65,7 +65,7 @@ function printPage () {
 
     if (login == false) {
 
-        main.innerHTML = "<h2>Välkommen, Logga in ovan eller skapa ett nytt konto nedan om du är ny på sidan</h2>" + "<br>";
+        main.innerHTML = "<h2>Välkommen, logga in ovan eller skapa ett nytt konto nedan om du är ny på sidan</h2>";
         nav.innerHTML = "";
         nav.append(logo);
 
@@ -76,9 +76,11 @@ function printPage () {
         let navInputUsername = document.createElement("input");
         navInputUsername.setAttribute("type", "text");
         navInputUsername.setAttribute("id", "navInputUsername");
+        navInputUsername.setAttribute("placeholder", "användarnamn");
         let navInputPassword = document.createElement("input");
         navInputPassword.setAttribute("type", "password");
         navInputPassword.setAttribute("id", "navInputPassword");
+        navInputPassword.setAttribute("placeholder", "lösenord");
         let navInputBtn = document.createElement("button");
         navInputBtn.innerText = "Login"
         navInputBtn.setAttribute("id", "navInputBtn");
@@ -92,10 +94,12 @@ function printPage () {
         let mainCreateUser = document.createElement("input");
         mainCreateUser.setAttribute("type", "text");
         mainCreateUser.setAttribute("id", "mainCreateUser");
+        mainCreateUser.setAttribute("placeholder", "användarnamn");
 
         let mainCreatePassword = document.createElement("input");
         mainCreatePassword.setAttribute("type", "password");
         mainCreatePassword.setAttribute("id", "mainCreatePassword");
+        mainCreatePassword.setAttribute("placeholder", "lösenord");
 
         let mainCreateUserBtn = document.createElement("button");
         mainCreateUserBtn.innerText = "skapa användare";

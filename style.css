@@ -8,6 +8,12 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+h1 {
+    
+    font-size: 4rem;
+    text-align: center;
+}
+
 h2 {
     font-weight: lighter;
     font-size: 1rem;
@@ -21,14 +27,15 @@ h3 {
 button {
     background-color: #faba43;
     border: none;
-    border-radius: 5%;
+    border-radius: 2%;
     color: white;
-    padding: 16px 32px;
+    padding: 10px 20px;
     text-align: center;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 2px 1px;
     opacity: 0.6;
     transition: 0.3s;
+    height: 5vh;
   }
   
   button:hover {opacity: 1}
@@ -41,6 +48,7 @@ input[type=text], select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    height: 5vh;
 }
 
 input[type=password], select {
@@ -51,17 +59,20 @@ input[type=password], select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    height: 5vh;
 }
 
 nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     gap: 20px;
     background-color: black;
     color: gold;
     height: 10vh;
     padding: 2%;
+    margin: 5%;
 
 }
 
