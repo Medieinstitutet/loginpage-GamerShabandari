@@ -1,5 +1,7 @@
 
-// fasta elementen på sidan sparade som variabler i script
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// fasta elementen på sidan sparade som variabler i script som appendas till sidan//////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let root = document.getElementById("root");
 
@@ -18,8 +20,9 @@ footer.append(footerText);
 
 root.append(nav, main, footer);
 
-
-// array med users-objekt
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////// array med users-objekt - två konton med som grund ///////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 let users = [
 
     {
@@ -32,6 +35,9 @@ let users = [
     }
 ];
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//skapar två tomma variabler som sedan fylls när användaren försöker logga in, samt en boolean som växlar vid lyckad inlogg
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let usersLogin = "";
 let usersPassword = "";
@@ -40,16 +46,32 @@ let usersPassword = "";
 let login = false;
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////// kör printpage funktionen och avgör sedan vart i koden man hamnar ///////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 printPage (); 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////// funktionen kollar om boolean login = falsk eller sannt ///////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function printPage () {
+
+    
+//////////////////// om login = falsk - välkommna användare och be dem logga in eller skapa konto ///////////////////////////////////
+
 
     if (login == false) {
 
         main.innerHTML = "<h2>Välkommen, Logga in ovan eller skapa ett nytt konto nedan om du är ny på sidan</h2>" + "<br>";
         nav.innerHTML = "";
         nav.append(logo);
+
+        ////////////////////////////////////////////////////////////
+        //////////////skapar aktuell nav - "inlogg" ////////////////
+        ////////////////////////////////////////////////////////////
 
         let navInputUsername = document.createElement("input");
         navInputUsername.setAttribute("type", "text");
@@ -64,7 +86,7 @@ function printPage () {
 
 
         ////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////
+        //////////////skapar aktuell main - "skapa ny användare" ////////////////
         ////////////////////////////////////////////////////////////
 
         let mainCreateUser = document.createElement("input");
@@ -81,38 +103,42 @@ function printPage () {
 
         main.append(mainCreateUser, mainCreatePassword, mainCreateUserBtn);
 
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //event skapa ny användare - knapp - tar användarens uppgifter, skapar ett nytt objekt///////////////////////////
+        // hämtar localstorage, uppdaterar tidigare array med det ny objektet och sparar ny array i localstorage  ///////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         mainCreateUserBtn.addEventListener("click", function(){
 
             let createdUser = mainCreateUser.value;
             let createdPassword = mainCreatePassword.value;
 
-            console.log("nu ska vi skapa använadre"+createdUser+createdPassword);
+            //console.log("nu ska vi skapa använadre"+createdUser+createdPassword);
 
 
-                let getMyUsers = JSON.parse(localStorage.getItem("users"));
-                //console.log(getMyUsers);
+            let getMyUsers = JSON.parse(localStorage.getItem("users"));
+            //console.log(getMyUsers);
 
-                let userCreatedAccount = {
+            let userCreatedAccount = {
 
-                    name: createdUser,
-                    password: createdPassword
-                };
+                name: createdUser,
+                password: createdPassword
+            };
 
-                getMyUsers.push(userCreatedAccount);
+            getMyUsers.push(userCreatedAccount);
 
-                //console.log(getMyUsers);
+            //console.log(getMyUsers);
 
-                localStorage.setItem("users", JSON.stringify(getMyUsers));
+            localStorage.setItem("users", JSON.stringify(getMyUsers));
 
 
         });
 
-
-
-
-        ////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //event logga in  - knapp - tar användarens uppgifter och uppdaterar globala variabler och kör om Printpage funktionen //////
+        // om uppgifterna ej matchar är man tillbaka här igen och då ser man alltid meddelande om fel inlogg  //////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         navInputBtn.addEventListener("click", function(){
@@ -123,7 +149,7 @@ function printPage () {
             main.innerHTML = "";
             main.append(mainFailedLogin);
 
-            console.log("nu vill du logga in");
+            //console.log("nu vill du logga in");
             let username = navInputUsername.value;
             //console.log(username);
             let userPassword = navInputPassword.value;
@@ -144,61 +170,66 @@ function printPage () {
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////// om login = sant - testa angivna uppgifter i en loop och jämför med lagrade uppgifter i localstorage /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     if (login == true) {
 
 
         localStorage.getItem("users", JSON.stringify(users));
 
-        //hämta array med objakt från localstorage
+        //hämta array med alla user-objekt från localstorage
         let getUsers = JSON.parse(localStorage.getItem("users"));
 
             //console.log(getUsers)
 
             // loopa igenom ovan array och sätt in värdena i variabler
-            for (let i = 0; i < getUsers.length; i++) {
-                let namn = getUsers[i].name;
-                let pass = getUsers[i].password;
-                //console.log(namn);
-                //console.log(pass);
+        for (let i = 0; i < getUsers.length; i++) {
+            let namn = getUsers[i].name;
+            let pass = getUsers[i].password;
+            //console.log(namn);
+            //console.log(pass);
 
 
+            // kolla om inmatade uppgifter matchar med uppgifter i localstorage
+            // om dem matchar är du inloggad
+            if (namn == usersLogin && pass == usersPassword) {
+        
+                //console.log("ok du är inne");
 
-                if (namn == usersLogin && pass == usersPassword) {
-            
-                    console.log("ok du är inne");
+            // töm sidan, rendera om med "inloggad vy - presentera knapp för utlogg som tömmer allt och börjar om igen med printpage"
 
-                    main.innerHTML = "";
-                    nav.innerHTML = "";
+                main.innerHTML = "";
+                nav.innerHTML = "";
 
-                    let logoutBtn = document.createElement("button");
-                    logoutBtn.setAttribute("id", "logoutBtn");
-                    logoutBtn.innerText = "Logga ut";
-                    nav.append(logoutBtn);
+                let logoutBtn = document.createElement("button");
+                logoutBtn.setAttribute("id", "logoutBtn");
+                logoutBtn.innerText = "Logga ut";
+                nav.append(logoutBtn);
 
-                    let loggedInMain = document.createElement("section");
-                    let welcomeText = document.createElement("p");
-                    welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
+                let loggedInMain = document.createElement("section");
+                let welcomeText = document.createElement("p");
+                welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
 
-                    main.append(loggedInMain);
-                    loggedInMain.append(welcomeText);
+                main.append(loggedInMain);
+                loggedInMain.append(welcomeText);
 
-                    logoutBtn.addEventListener("click", function(){
+                logoutBtn.addEventListener("click", function(){
 
-                        console.log("du vill logga ut");
-                        login = false;
+                    console.log("du vill logga ut");
+                    login = false;
 
-                        main.innerHTML = "test";
-                        nav.innerHTML = "test";
+                    main.innerHTML = "test";
+                    nav.innerHTML = "test";
 
 
-                        printPage ();
+                    printPage ();
 
-                    });
-            
-                };
-                
+                });
+        
             };
+            
+        };
     };
-
 
 };
