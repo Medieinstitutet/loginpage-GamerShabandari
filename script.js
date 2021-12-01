@@ -46,7 +46,7 @@ let usersLogin = "";
 let usersPassword = "";
 
 
-let login = false;
+//let login = false;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,14 +65,15 @@ printPage ();
 function printPage () {
 
 
-    let testFunkar = JSON.parse(localStorage.getItem("status"));
-    console.log(testFunkar);
+let inloggad = JSON.parse(localStorage.getItem("status"));
+console.log(inloggad);
     
 //////////////////// om login = falsk - välkommna användare och be dem logga in eller skapa konto ///////////////////////////////////
 
 
-    if (login == false || testFunkar != "true") {
-
+    //if (login == false || inloggad == null ) {
+    if (inloggad == null ) {
+    
         main.innerHTML = "<h2>Välkommen, logga in ovan eller skapa ett nytt konto nedan om du är ny på sidan</h2>";
         nav.innerHTML = "";
         nav.append(logo);
@@ -177,9 +178,17 @@ function printPage () {
 
             //console.log(users);
 
-            //console.log(usersLogin, usersPassword);
+            console.log(usersLogin, usersPassword);
 
             login = true;
+
+            let inloggad = JSON.parse(localStorage.getItem("status"));
+
+            localStorage.setItem("status", JSON.stringify(login));
+
+
+            console.log(inloggad);
+
 
             printPage (); 
 
@@ -190,7 +199,9 @@ function printPage () {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////// om login = sant - testa angivna uppgifter i en loop och jämför med lagrade uppgifter i localstorage /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    if (login == true) {
+    if (inloggad == true) {
+
+        
 
 
         localStorage.getItem("users", JSON.stringify(users));
@@ -198,21 +209,25 @@ function printPage () {
         //hämta array med alla user-objekt från localstorage
         let getUsers = JSON.parse(localStorage.getItem("users"));
 
-            //console.log(getUsers)
+        console.log(getUsers)
+
+        console.log(usersLogin);
+        console.log(usersPassword);
+        
 
             // loopa igenom ovan array och sätt in värdena i variabler
         for (let i = 0; i < getUsers.length; i++) {
             let namn = getUsers[i].name;
             let pass = getUsers[i].password;
-            //console.log(namn);
-            //console.log(pass);
-
+            console.log(namn);
+            console.log(pass);
+            console.log("här är du");
 
             // kolla om inmatade uppgifter matchar med uppgifter i localstorage
             // om dem matchar är du inloggad
             if (namn == usersLogin && pass == usersPassword) {
         
-                //console.log("ok du är inne");
+                console.log("ok du är inne");
 
                 let loginstatus = "true";
 
