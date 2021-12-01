@@ -39,14 +39,14 @@ localStorage.setItem("users", JSON.stringify(users));
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//skapar två tomma variabler som sedan fylls när användaren försöker logga in, samt en boolean som växlar vid lyckad inlogg
+//skapar tre tomma variabler som sedan fylls när användaren försöker logga in, samt en boolean som växlar vid lyckad inlogg
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let usersLogin = "";
 let usersPassword = "";
 
-
-//let login = false;
+let dittNamn = "";
+//let namn = "";
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,13 +65,10 @@ printPage ();
 function printPage () {
 
 
-let inloggad = JSON.parse(localStorage.getItem("status"));
-console.log(inloggad);
+    let inloggad = JSON.parse(localStorage.getItem("status"));
     
-//////////////////// om login = falsk - välkommna användare och be dem logga in eller skapa konto ///////////////////////////////////
+    //////////////////// om status = null - välkommna användare och be dem logga in eller skapa konto ///////////////////////////////////
 
-
-    //if (login == false || inloggad == null ) {
     if (inloggad == null ) {
     
         main.innerHTML = "<h2>Välkommen, logga in ovan eller skapa ett nytt konto nedan om du är ny på sidan</h2>";
@@ -118,7 +115,7 @@ console.log(inloggad);
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //event skapa ny användare - knapp - tar användarens uppgifter, skapar ett nytt objekt///////////////////////////
+        //event skapa ny användare - knapp - tar användarens uppgifter, skapar ett nytt user objekt//////////////////////
         // hämtar localstorage, uppdaterar tidigare array med det ny objektet och sparar ny array i localstorage  ///////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -127,11 +124,7 @@ console.log(inloggad);
             let createdUser = mainCreateUser.value;
             let createdPassword = mainCreatePassword.value;
 
-            //console.log("nu ska vi skapa använadre"+createdUser+createdPassword);
-
-
             let getMyUsers = JSON.parse(localStorage.getItem("users"));
-            //console.log(getMyUsers);
 
             let userCreatedAccount = {
 
@@ -141,104 +134,63 @@ console.log(inloggad);
 
             getMyUsers.push(userCreatedAccount);
 
-            //console.log(getMyUsers);
-
             localStorage.setItem("users", JSON.stringify(getMyUsers));
 
-
         });
+    
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //event logga in  - knapp - tar användarens uppgifter och uppdaterar globala variabler och kör om Printpage funktionen //////
         // om uppgifterna ej matchar är man tillbaka här igen och då ser man alltid meddelande om fel inlogg  //////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        ///// om uppgifterna stämmer mot databasen - uppdatera status till true och kör om printpage funktionen/////////////////////
 
         navInputBtn.addEventListener("click", function(){
+        
+        let getUsers = JSON.parse(localStorage.getItem("users"));
+        let username = navInputUsername.value;
+        let userPassword = navInputPassword.value;
+
+        main.innerHTML = "";
+        nav.innerHTML = "";
+        nav.append(logo);
+        main.innerText = "nu skrev du fel lösen gå tillbaka och fixa";
 
 
-            let mainFailedLogin = document.createElement("h2")
-            mainFailedLogin.innerText = "Du skrev fel lösen!";
-            let mainFailedImg = document.createElement("img")
-            mainFailedImg.setAttribute("src", "fail.jpg")
-            
-            
-            main.innerHTML = "";
+            for (let i = 0; i < getUsers.length; i++) {
+                let namn = getUsers[i].name;
+                let pass = getUsers[i].password;
+               
+    
+                // kolla om inmatade uppgifter matchar med uppgifter i localstorage
+                // om dem matchar är du inloggad
+                if (namn == username && pass == userPassword) {
+    
+                    let loginstatus = true;
 
-            main.append(mainFailedLogin, mainFailedImg);
+                    localStorage.setItem("status", JSON.stringify(loginstatus));
 
-            //console.log("nu vill du logga in");
-            let username = navInputUsername.value;
-            //console.log(username);
-            let userPassword = navInputPassword.value;
-            //console.log(userPassword);
-
-            usersLogin = username;
-            usersPassword = userPassword;
-
-            //console.log(users);
-
-            console.log(usersLogin, usersPassword);
-
-            login = true;
-
-            let inloggad = JSON.parse(localStorage.getItem("status"));
-
-            localStorage.setItem("status", JSON.stringify(login));
-
-
-            console.log(inloggad);
-
-
-            printPage (); 
+                    printPage (); 
+                };
+                
+                
+            };
 
         });
 
-    }
+    };
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////// om login = sant - testa angivna uppgifter i en loop och jämför med lagrade uppgifter i localstorage /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////// om login = true - välkommen in //////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     if (inloggad == true) {
 
-        
-
-
-        localStorage.getItem("users", JSON.stringify(users));
-
-        //hämta array med alla user-objekt från localstorage
-        let getUsers = JSON.parse(localStorage.getItem("users"));
-
-        console.log(getUsers)
-
-        console.log(usersLogin);
-        console.log(usersPassword);
-        
-
-            // loopa igenom ovan array och sätt in värdena i variabler
-        for (let i = 0; i < getUsers.length; i++) {
-            let namn = getUsers[i].name;
-            let pass = getUsers[i].password;
-            console.log(namn);
-            console.log(pass);
-            console.log("här är du");
-
-            // kolla om inmatade uppgifter matchar med uppgifter i localstorage
-            // om dem matchar är du inloggad
-            if (namn == usersLogin && pass == usersPassword) {
-        
-                console.log("ok du är inne");
-
-                let loginstatus = "true";
-
-                localStorage.setItem("status", (loginstatus));
-
-            // töm sidan, rendera om med "inloggad vy - presentera knapp för utlogg som tömmer allt och börjar om igen med printpage"
-
+     
                 main.innerHTML = "";
                 nav.innerHTML = "";
                 nav.append(logo);
-                main.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
+                main.innerText = "Välkommen in till Gamers Inc " +dittNamn.value+ " du är nu inloggad!";
+                console.log(dittNamn.value);
 
                 let logoutBtn = document.createElement("button");
                 logoutBtn.setAttribute("id", "logoutBtn");
@@ -247,28 +199,24 @@ console.log(inloggad);
 
                 //let loggedInMain = document.createElement("section");
                 //let welcomeText = document.createElement("p");
-                //welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
+               // welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
 
                 let mainPassedImg = document.createElement("img")
                 mainPassedImg.setAttribute("src", "passed.jpg")
 
                 main.append(mainPassedImg);
-                //loggedInMain.append(welcomeText, mainPassedImg);
 
                 logoutBtn.addEventListener("click", function(){
-
+                    //console.log("nu är du här och klickar på lotou");
                     
                     localStorage.removeItem("status");
-
-                    login = false;
 
                     printPage ();
 
                 });
         
-            };
             
-        };
+
     };
 
 };
