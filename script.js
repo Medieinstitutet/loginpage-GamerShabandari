@@ -150,11 +150,21 @@ function printPage () {
         let getUsers = JSON.parse(localStorage.getItem("users"));
         let username = navInputUsername.value;
         let userPassword = navInputPassword.value;
+        let goBackBtn = document.createElement("button");
+        goBackBtn.innerText = "Tillbaka";
+        goBackBtn.setAttribute("id", "goBackBtn");
+
+        goBackBtn.addEventListener("click", function(){
+
+            printPage();
+        });
+
 
         main.innerHTML = "";
         nav.innerHTML = "";
         nav.append(logo);
-        main.innerText = "nu skrev du fel lösen gå tillbaka och fixa";
+        main.innerText = "Oops! Tyvärr stämmer inte uppgifterna, vänligen gå tillbaka och prova igen.";
+        main.append(goBackBtn);
 
 
             for (let i = 0; i < getUsers.length; i++) {
@@ -190,32 +200,32 @@ function printPage () {
 
     if (inloggad == true) {
 
-                let yourUsername = JSON.parse(localStorage.getItem("yourName"));
+        let yourUsername = JSON.parse(localStorage.getItem("yourName"));
 
-                main.innerHTML = "";
-                nav.innerHTML = "";
-                nav.append(logo);
-                main.innerText = "Välkommen in till Gamers Inc "+yourUsername+ " du är nu inloggad!";
+        main.innerHTML = "";
+        nav.innerHTML = "";
+        nav.append(logo);
+        main.innerText = "Välkommen in till Gamers Inc "+yourUsername+ " du är nu inloggad!";
 
-                let logoutBtn = document.createElement("button");
-                logoutBtn.setAttribute("id", "logoutBtn");
-                logoutBtn.innerText = "Logga ut";
-                nav.append(logoutBtn);
+        let logoutBtn = document.createElement("button");
+        logoutBtn.setAttribute("id", "logoutBtn");
+        logoutBtn.innerText = "Logga ut";
+        nav.append(logoutBtn);
 
-                let mainPassedImg = document.createElement("img")
-                mainPassedImg.setAttribute("src", "passed.jpg")
+        let mainPassedImg = document.createElement("img")
+        mainPassedImg.setAttribute("src", "passed.jpg")
 
-                main.append(mainPassedImg);
+        main.append(mainPassedImg);
 
-                logoutBtn.addEventListener("click", function(){
-                    
-                    localStorage.removeItem("status");
+        logoutBtn.addEventListener("click", function(){
+            
+            localStorage.removeItem("status");
 
-                    localStorage.removeItem("yourName");
+            localStorage.removeItem("yourName");
 
-                    printPage ();
+            printPage ();
 
-                });
+        });
         
             
 
