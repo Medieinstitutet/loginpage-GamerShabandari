@@ -45,9 +45,7 @@ localStorage.setItem("users", JSON.stringify(users));
 let usersLogin = "";
 let usersPassword = "";
 
-let dittNamn = "";
-//let namn = "";
-
+let yourUsername = "dear user"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////// kör printpage funktionen och avgör sedan vart i koden man hamnar ///////////////////////////////////
@@ -162,10 +160,14 @@ function printPage () {
                
     
                 // kolla om inmatade uppgifter matchar med uppgifter i localstorage
-                // om dem matchar är du inloggad
+                // om dem matchar är du inloggad, sparar då även ditt användarnamn i localstorage
                 if (namn == username && pass == userPassword) {
     
                     let loginstatus = true;
+
+                    yourUsername = namn;
+
+                    localStorage.setItem("yourName", JSON.stringify(yourUsername));
 
                     localStorage.setItem("status", JSON.stringify(loginstatus));
 
@@ -185,21 +187,17 @@ function printPage () {
 
     if (inloggad == true) {
 
-     
+                let yourUsername = JSON.parse(localStorage.getItem("yourName"));
+
                 main.innerHTML = "";
                 nav.innerHTML = "";
                 nav.append(logo);
-                main.innerText = "Välkommen in till Gamers Inc " +dittNamn.value+ " du är nu inloggad!";
-                console.log(dittNamn.value);
+                main.innerText = "Välkommen in till Gamers Inc "+yourUsername+ " du är nu inloggad!";
 
                 let logoutBtn = document.createElement("button");
                 logoutBtn.setAttribute("id", "logoutBtn");
                 logoutBtn.innerText = "Logga ut";
                 nav.append(logoutBtn);
-
-                //let loggedInMain = document.createElement("section");
-                //let welcomeText = document.createElement("p");
-               // welcomeText.innerText = "Välkommen in till Gamers Inc " +namn+ " du är nu inloggad!";
 
                 let mainPassedImg = document.createElement("img")
                 mainPassedImg.setAttribute("src", "passed.jpg")
@@ -207,9 +205,10 @@ function printPage () {
                 main.append(mainPassedImg);
 
                 logoutBtn.addEventListener("click", function(){
-                    //console.log("nu är du här och klickar på lotou");
                     
                     localStorage.removeItem("status");
+
+                    localStorage.removeItem("yourName");
 
                     printPage ();
 
