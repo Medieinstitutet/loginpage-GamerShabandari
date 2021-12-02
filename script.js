@@ -134,6 +134,9 @@ function printPage () {
 
             localStorage.setItem("users", JSON.stringify(getMyUsers));
 
+            mainCreateUser.value = "";
+            mainCreatePassword.value = "";
+
         });
     
 
